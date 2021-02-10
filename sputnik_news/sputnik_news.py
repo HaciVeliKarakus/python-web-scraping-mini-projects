@@ -38,7 +38,7 @@ def open_detailed_window(link):
     article_div = article_soup.find("div", class_="b-article")
     # article title text
     # more detailed then main page title
-    article_title = article_div.find("div", "b-article__lead").text.replace('\n','')
+    article_title = article_div.find("div", "b-article__lead").text.replace('\n', '')
     # article detailed text including news details
     article_detail = article_div.find("div", "b-article__text").text
 
@@ -71,6 +71,9 @@ def open_detailed_window(link):
     # get image saved name with saved folder and image name stored at server
     saved_img_name = os.path.join("articles_img", article_img_url.split("/")[-1].replace(":", "_"))
 
+    # create folder for save article image if not exist
+    if not os.path.exists('articles_img'):
+        os.makedirs('articles_img')
     # download article image if not stored
     if not os.path.exists(saved_img_name):
         # get image stream
@@ -120,7 +123,7 @@ if __name__ == '__main__':
     # disable resizable
     root.resizable(0, 0)
     root.configure(bg="black")
-    
+
     # sputnik news logo.png
     img = ImageTk.PhotoImage(Image.open("img\logo.png"))
     Label(root, image=img, bg="black").pack()
@@ -130,7 +133,7 @@ if __name__ == '__main__':
     news_btn_list = []
     # number of news is 14 on breaking news page
     for index in range(14):
-        #create dynamic btn for everynews
+        # create dynamic btn for everynews
         news_btn_list.append(
             Button(root,
                    text=news_titles[index],
@@ -139,5 +142,5 @@ if __name__ == '__main__':
                    command=lambda k=index: open_detailed_window(news_detail_links[k]))
         )
         news_btn_list[index].pack()
-        
+
     root.mainloop()
