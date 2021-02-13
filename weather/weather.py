@@ -8,6 +8,7 @@ from PIL import ImageTk, Image
 
 class Expandable_Map(Frame):
     """this is a frame with a label, can resizable with map image"""
+
     def __init__(self, master, map_save_name, *pargs):
         Frame.__init__(self, master, *pargs)
         # load map image
@@ -76,16 +77,15 @@ if __name__ == '__main__':
     root = Tk()
     root.geometry("790x381")
     root.title("WEATHER")
-
+    # start with today map
     map_save_name = prepare_save_folder(1)
-
+    # create expandable map
     e = Expandable_Map(root, map_save_name)
     e.pack(fill=BOTH, expand=YES)
 
     days = []
-
+    # create menubar
     menubar = Menu(root)
-
     menubar.add_command(label="BUGÜN", command=lambda: change_map(1))
     menubar.add_command(label="YARIN", command=lambda: change_map(2))
     menubar.add_command(label="2 GÜN SONRA", command=lambda: change_map(3))
